@@ -1,0 +1,26 @@
+{
+  "name": "restapinode",
+  "version": "1.0.0",
+  "description": "Learning about APIs and REST APIs building my own lul",
+  "main": "app.js",
+  "scripts": {
+    "start": "node ./",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon ./"
+  },
+  "keywords": [
+    "learning",
+    "cefet",
+    "api",
+    "rest",
+    "zamora"
+  ],
+  "author": "Enzo Zamora",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  }
+}
