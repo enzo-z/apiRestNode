@@ -5,12 +5,26 @@ const router = express.Router();
 const FriendModel = require("../models/Friend");
 
 /**Get data from DB */
-router.get("/fears", (req, res)=> { 
+router.get("/friends", async (req, res)=> { 
     try {
-        res.status(200).send({"hello":"my fears"});
+        const {long, lat} = req.query;
+        await mongoose.connection.collection('friends').createIndex({geometry:"2dsphere"})
+        const data = await FriendModel.aggregate([
+        {
+                $geoNear: {
+                    near: { type: "Point", coordinates: [parseFloat(long), parseFloat(lat)] },
+                    distanceField: "dist.calculated",
+                    maxDistance: 100000,
+                    spherical: true
+                }, 
+                
+            }, 
+        ]);
+        console.log(data);
+        res.status(200).send(data);
     } catch (error) {
         console.log(error);
-        res.status(500).send("<h1>ERROR</h1>");
+        res.status(400).send({"status":'Bad fucking request', "msg": error.message});
     }
     
 });
